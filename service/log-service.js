@@ -28,7 +28,21 @@ const pushLog = async (data) => {
   } catch (error) {
     console.log("Error al subir a DB", error)
   }
-
 }
 
-module.exports = pushLog;
+
+const searchLog = async () => {
+  try{
+    initConection();
+    resPushLog = [];
+    for await (const log of LogModel.find()) {
+      resPushLog.push(log);
+    }
+    return resPushLog;
+  } catch (error) {
+    console.log("Error al buscar", error)
+  }
+}
+
+module.exports = {pushLog, 
+                  searchLog};
