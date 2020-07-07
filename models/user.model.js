@@ -1,34 +1,28 @@
-const mongoose = require('mongoose')
-const {Schema, model} = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
+const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
-  usuario:{type:String,required:true},
-  correo:{type:String,required:true,unique:true,lowercase:true},
-  contrasenia:{type:String,required:true},
-  hospital:{type:String,required:true}
+  usuario: { type: String, required: true },
+  correo: { type: String, required: true, unique: true, lowercase: true },
+  contrasenia: { type: String, required: true },
+  hospital: { type: String, required: true },
+  admin: { type: Boolean, required: false, default: false },
 });
 
-userSchema.pre("save",function (next)  {
-  var user = this;
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) return next(err)
-    bcrypt.hash(this.contrasenia, salt, null, (err, hash) => {
-      if (err) return next(err)
-      this.contrasenia = hash
-      next()
-    })
-  })
-})
-
-userSchema.methods.comparePassword = function (candidatePassword, cb)
- {
-  bcrypt.compare(candidatePassword, this.contrasenia, (err, isMatch) => {
-    cb(err, isMatch)
-  });
-}
-
-
-
-
-module.exports = mongoose.model('Usuario', userSchema);
+userSchema.pre("save", async function (next) {
+  try {
+    const hashedPassword = await bcrypt.hash(this.contrasenia, 10);
+    this.contrasenia = hashedPassword;
+    console.log(` Mi contra :  ${hashedPassword}`);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+}),
+  (userSchema.methods.comparePassword = function (candidatePassword, cb) {
+    bcrypt.compare(candidatePassword, this.contrasenia, (err, isMatch) => {
+      cb(err, isMatch);
+    });
+  }),
+  (module.exports = mongoose.model("Usuario", userSchema));

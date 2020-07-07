@@ -22,7 +22,7 @@ const initConection = () =>{
 
 const pushLog = async (data) => {
   try {
-    initConection();
+    //initConection();
     const log = new LogModel(data);
     const resPushLog = await log.save();
     return resPushLog;
@@ -34,7 +34,7 @@ const pushLog = async (data) => {
 
 const searchLog = async () => {
   try{
-    initConection();
+    //initConection();
     resPushLog = [];
     for await (const log of LogModel.find()) {
       resPushLog.push(log);
@@ -46,4 +46,4 @@ const searchLog = async () => {
 }
 
 module.exports = {pushLog, 
-                  searchLog};
+                  searchLog, initConection};

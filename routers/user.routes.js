@@ -11,7 +11,6 @@ function userRoute(app) {
     router.post('/', userController.postUser);
     router.delete('/:id',userController.deleteUser);
     router.put('/:id',userController.putUser);
-    router.post('/registrar', userController.signUp);
     router.post('/autenticar', userController.signIn);    
 
 } 
