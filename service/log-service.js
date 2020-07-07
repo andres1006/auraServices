@@ -9,7 +9,8 @@ let db = null;
 
 const initConection = () =>{
     if(!db){
-      mongoose.connect( DB_URI, {useNewUrlParser: true, useUnifiedTopology: true });
+      mongoose.connect( DB_URI, {useNewUrlParser: true, useUnifiedTopology: true })
+                      .then(db => console.log('db is connected'));
       db = mongoose.connection;
       db.on('error', console.error.bind(console, 'connection error:'));
       db.once('open', function() {
