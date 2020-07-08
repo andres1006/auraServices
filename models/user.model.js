@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
-
+const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
   usuario: { type: String, required: true },
@@ -11,7 +10,7 @@ const userSchema = new Schema({
   admin: { type: Boolean, required: false, default: false },
 });
 
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   try {
     const hashedPassword = await bcrypt.hash(this.contrasenia, 10);
     this.contrasenia = hashedPassword;
@@ -26,4 +25,4 @@ userSchema.pre("save", async function (next) {
       cb(err, isMatch);
     });
   }),
-  (module.exports = mongoose.model("Usuario", userSchema));
+  (module.exports = mongoose.model('Usuario', userSchema));
