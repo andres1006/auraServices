@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../utils/jwt');
 const Usuario = require('../models/user.model');
 
+const { error } = console;
+
 module.exports = {
   async getAllUsers() {
     const users = await Usuario.find();
@@ -15,8 +17,13 @@ module.exports = {
   },
 
   async postUser(userreq) {
-    const savedUser = await userreq.save();
-    return savedUser;
+    try {
+      const savedUser = await userreq.save();
+      return savedUser;
+    } catch (e) {
+      error(e);
+      return e;
+    }
   },
 
   async putUser(id, userreq) {
