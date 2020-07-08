@@ -70,7 +70,7 @@ module.exports = {
           return res.status(200).send({
             message: 'Te has logueado correctamente',
             token: tokenGenerado,
-            user: user,
+            user,
           });
         }
       );
