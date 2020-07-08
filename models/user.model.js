@@ -10,7 +10,7 @@ const userSchema = new Schema({
   admin: { type: Boolean, required: false, default: false },
 });
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async (next) => {
   try {
     const hashedPassword = await bcrypt.hash(this.contrasenia, 10);
     this.contrasenia = hashedPassword;
