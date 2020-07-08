@@ -14,8 +14,8 @@ module.exports = {
 
   // JWT config
   JWT: {
-    algorithm: 'HS256',
-    accessTokenExpiryTime: 86400, // 15 minutes
+    algorithm: ['HS256','HS256'],
+    accessTokenExpiryTime: 86400, // 1 day
     refreshTokenExpiryTime: 3600, // 1 hour
     secret: process.env.JWT_SECRET,
   },

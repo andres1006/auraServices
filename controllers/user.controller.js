@@ -74,7 +74,6 @@ module.exports = {
               .send({
                 message: `Error de contraseña: ${req.body.contrasenia}`,
               });
-          console.log(isMatch);
 
           //req.user = user
           let tokenGenerado = await UserService.createToken(user);

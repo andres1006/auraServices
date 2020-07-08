@@ -1,9 +1,12 @@
 const jwt = require('express-jwt');
+//const jwt = require('jsonwebtoken');
+
 require('dotenv').config();
 
 const UsuarioService = require('../service/user.service');
 const { JWT } = require('../config');
-const { secret } = JWT;
+const { options } = require('superagent');
+const { secret,algorithm } = JWT;
 
 
 
@@ -44,16 +47,21 @@ function isAuth (req, res, next) {
       res.status(response.status).send({message: response.message})
     })
 }
-
 module.exports = {
-  required: jwt({
+  data:
+   jwt({
+     secret,
+     algorithms:algorithm
+   }),
+/*   required: jwt({
     secret,
-    requestProperty: 'auth',
+    requestProperty: 'auth'
   }),
   optional: jwt({
     secret,
     requestProperty: 'auth',
-    credentialsRequired: false,
-  }),
-  isAuth,
+    credentialsRequired: false
+  }), */
+  isAuth
 };
+

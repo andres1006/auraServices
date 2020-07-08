@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
+
 const userSchema = new Schema({
   usuario: { type: String, required: true },
   correo: { type: String, required: true, unique: true, lowercase: true },
