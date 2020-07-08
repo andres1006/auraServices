@@ -1,5 +1,5 @@
 const jwt = require('express-jwt');
-//const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
@@ -31,7 +31,7 @@ function isAuth(req, res, next) {
   }
 
   const token = req.headers.authorization.split(' ')[1];
-  //Bearer sdkasdlajsiejapj
+  // Bearer sdkasdlajsiejapj
 
   UsuarioService.decodeToken(token)
     .then((response) => {
