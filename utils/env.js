@@ -6,7 +6,7 @@ module.exports = {
    * @returns {void}
    */
   checkEnvironmentVariables(variables) {
-    variables.forEach(variable => {
+    variables.forEach((variable) => {
       if (!process.env[variable]) throw new Error(`Missing environment variable '${variable}'.`);
     });
   },
