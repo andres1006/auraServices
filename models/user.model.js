@@ -12,7 +12,7 @@ const userSchema = new Schema({
   admin: { type: Boolean, required: false, default: false },
 });
 
-userSchema.pre('save', async (next) => {
+userSchema.pre('save', async function (next) {
   try {
     const hashedPassword = await bcrypt.hash(this.contrasenia, 10);
     this.contrasenia = hashedPassword;
@@ -22,7 +22,7 @@ userSchema.pre('save', async (next) => {
     next(e);
   }
 });
-userSchema.methods.comparePassword = (candidatePassword, cb) => {
+userSchema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.contrasenia, (err, isMatch) => {
     cb(err, isMatch);
   });
