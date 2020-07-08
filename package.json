@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "nodemon index"
+    "test": "echo \"This command must be for tests\"",
+    "dev": "nodemon index.js"
   },
   "author": "Andres Agudelo",
   "license": "ISC",
@@ -20,7 +21,6 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.27.0",
     "mongoose": "^5.9.13",
-    "nodemon": "^2.0.3",
     "superagent": "^5.2.2"
   },
   "devDependencies": {
@@ -32,6 +32,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.0",
+    "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
   }
 }
