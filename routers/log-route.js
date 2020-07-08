@@ -6,7 +6,7 @@ function logRoute(app) {
   const router = express.Router();
   app.use('/api/log', router);
 
-  router.post('/', async function (req, res, next) {
+  router.post('/', async (req, res, next) => {
     try {
       const { body } = req;
       const resLogPush = await pushLog(body);
@@ -19,7 +19,7 @@ function logRoute(app) {
     }
   });
 
-  router.get('/listarlogs', async function (req, res, next) {
+  router.get('/listarlogs', async (req, res, next) => {
     try {
       const { body } = req;
       const resLogPush = await searchLog(body);
