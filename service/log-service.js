@@ -27,8 +27,8 @@ const pushLog = async (data) => {
     const logToSave = new LogModel(data);
     const resPushLog = await logToSave.save();
     return resPushLog;
-  } catch (error) {
-    log('Error al subir a DB', error);
+  } catch (e) {
+    log('Error al subir a DB', e);
   }
 };
 
@@ -40,8 +40,8 @@ const searchLog = async () => {
       resPushLog.push(logs);
     }
     return resPushLog;
-  } catch (error) {
-    log('Error al buscar', error);
+  } catch (e) {
+    log('Error al buscar', e);
   }
 };
 
