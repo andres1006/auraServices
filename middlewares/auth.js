@@ -25,6 +25,7 @@ const { secret, algorithm } = JWT;
  * router.get('/users', auth.required, usersController.getUsers);
  */
 
+// eslint-disable-next-line consistent-return
 function isAuth(req, res, next) {
   if (!req.headers.authorization) {
     return res.status(403).send({ message: 'No tienes autorización' });
