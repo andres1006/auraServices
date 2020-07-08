@@ -1,14 +1,14 @@
 const UserService = require('../service/user.service');
 const Usuario = require('../models/user.model');
-const path = require('path');
+
 module.exports = {
-  async getUsers(req, res, next) {
+  async getUsers(req, res) {
     const users = await UserService.getAllUsers();
 
     return res.status(200).send({ users });
   },
 
-  async getUser(req, res, next) {
+  async getUser(req, res) {
     const { id } = req.params;
 
     const user = await UserService.getUserById(id);
@@ -16,7 +16,7 @@ module.exports = {
     return res.status(200).send({ user });
   },
 
-  async postUser(req, res, next) {
+  async postUser(req, res) {
     let user = new Usuario({
       usuario: req.body.usuario,
       correo: req.body.correo,
@@ -26,7 +26,7 @@ module.exports = {
     });
 
     //acá invoco el gravatar antes de que grabe el usuario
-    const newUser = await user.save(async (err) => {
+    await user.save(async (err) => {
       if (err) return res.status(500).send({ message: `Error al crear el usuario: ${err}` });
       let tokenGenerado = await UserService.createToken(user);
       // await UserService.postUser(user);
