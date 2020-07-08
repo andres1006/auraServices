@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const UsuarioService = require('../service/user.service');
 const { JWT } = require('../config');
-const { options } = require('superagent');
+
 const { secret, algorithm } = JWT;
 
 /**
