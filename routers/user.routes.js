@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { Router } = require('express');
+
 const router = Router();
 const userController = require('../controllers/user.controller');
 const Auth = require('../middlewares/auth');
