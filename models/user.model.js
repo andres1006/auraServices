@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const { log, error } = console;
+
 const userSchema = new Schema({
   usuario: { type: String, required: true },
   correo: { type: String, required: true, unique: true, lowercase: true },
@@ -14,9 +16,9 @@ userSchema.pre('save', async (next) => {
   try {
     const hashedPassword = await bcrypt.hash(this.contrasenia, 10);
     this.contrasenia = hashedPassword;
-    console.log(` Mi contra :  ${hashedPassword}`);
+    log(` Mi contra :  ${hashedPassword}`);
   } catch (e) {
-    console.error(e);
+    error(e);
     next(e);
   }
 });
