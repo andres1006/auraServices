@@ -23,25 +23,22 @@ const initConection = () => {
 
 const pushLog = async (data) => {
   try {
-    // initConection();
     const logToSave = new LogModel(data);
     const resPushLog = await logToSave.save();
     return resPushLog;
   } catch (e) {
     log('Error al subir a DB', e);
+    return e;
   }
 };
 
 const searchLog = async () => {
   try {
-    // initConection();
-    const resPushLog = [];
-    for await (const logs of LogModel.find()) {
-      resPushLog.push(logs);
-    }
-    return resPushLog;
+    const logs = await LogModel.find({});
+    return logs;
   } catch (e) {
     log('Error al buscar', e);
+    return e;
   }
 };
 
