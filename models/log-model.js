@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const LogModel = mongoose.model('Log', new mongoose.Schema({ 
+const LogModel = mongoose.model(
+  'Log',
+  new mongoose.Schema({
     label: String,
     labelGlobal: String,
     accion: String,
@@ -8,8 +10,8 @@ const LogModel = mongoose.model('Log', new mongoose.Schema({
     estadoProceso: String,
     codigoProceso: Number,
     descripcion: String,
-    fecha: Date
-})
-);;
+    fecha: Date,
+  })
+);
 
 module.exports = LogModel;
