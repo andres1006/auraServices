@@ -6,11 +6,7 @@ require('dotenv').config();
 const UsuarioService = require('../service/user.service');
 const { JWT } = require('../config');
 const { options } = require('superagent');
-const { secret,algorithm } = JWT;
-
-
-
-
+const { secret, algorithm } = JWT;
 
 /**
  * Express request handlers that verify if a valid token exists in request.
@@ -29,31 +25,30 @@ const { secret,algorithm } = JWT;
  * router.get('/users', auth.required, usersController.getUsers);
  */
 
-function isAuth (req, res, next) {
+function isAuth(req, res, next) {
   if (!req.headers.authorization) {
-    return res.status(403).send({ message: 'No tienes autorización' })
+    return res.status(403).send({ message: 'No tienes autorización' });
   }
 
-  const token = req.headers.authorization.split(' ')[1]
+  const token = req.headers.authorization.split(' ')[1];
   //Bearer sdkasdlajsiejapj
 
   UsuarioService.decodeToken(token)
-    .then(response => {
-      req.user = response
+    .then((response) => {
+      req.user = response;
 
-      next()
+      next();
     })
-    .catch(response => {
-      res.status(response.status).send({message: response.message})
-    })
+    .catch((response) => {
+      res.status(response.status).send({ message: response.message });
+    });
 }
 module.exports = {
-  data:
-   jwt({
-     secret,
-     algorithms:algorithm
-   }),
-/*   required: jwt({
+  data: jwt({
+    secret,
+    algorithms: algorithm,
+  }),
+  /*   required: jwt({
     secret,
     requestProperty: 'auth'
   }),
@@ -62,6 +57,5 @@ module.exports = {
     requestProperty: 'auth',
     credentialsRequired: false
   }), */
-  isAuth
+  isAuth,
 };
-
