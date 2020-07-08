@@ -19,10 +19,10 @@ userSchema.pre('save', async function (next) {
     console.error(e);
     next(e);
   }
+});
+(userSchema.methods.comparePassword = function (candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.contrasenia, (err, isMatch) => {
+    cb(err, isMatch);
+  });
 }),
-  (userSchema.methods.comparePassword = function (candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.contrasenia, (err, isMatch) => {
-      cb(err, isMatch);
-    });
-  }),
   (module.exports = mongoose.model('Usuario', userSchema));
