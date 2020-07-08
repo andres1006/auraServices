@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const { JWT } = require('../config');
 
-const {  secret, accessTokenExpiryTime, refreshTokenExpiryTime } = JWT;
+const { secret, accessTokenExpiryTime, refreshTokenExpiryTime } = JWT;
 
 module.exports = {
   /**
@@ -15,13 +15,13 @@ module.exports = {
   generateToken(accessTokenPayload, refreshTokenPayload) {
     // Generate access token
     const accessToken = jwt.sign(accessTokenPayload, secret, {
-      algorithm:'HS256',
+      algorithm: 'HS256',
       expiresIn: accessTokenExpiryTime,
     });
 
     // Generate refresh token
     const refreshToken = jwt.sign(refreshTokenPayload, secret, {
-      algorithm:'HS256',
+      algorithm: 'HS256',
       expiresIn: refreshTokenExpiryTime,
     });
 
