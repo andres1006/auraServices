@@ -57,8 +57,9 @@ module.exports = {
       return user.comparePassword(
         req.body.contrasenia,
 
-        async (err, isMatch) => {
-          if (err) return res.status(500).send({ message: `Error al ingresar: ${err}` });
+        async (errCallBack, isMatch) => {
+          if (errCallBack)
+            return res.status(500).send({ message: `Error al ingresar: ${errCallBack}` });
           if (!isMatch)
             return res.status(404).send({
               message: `Error de contraseña: ${req.body.contrasenia}`,
