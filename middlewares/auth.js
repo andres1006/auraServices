@@ -3,7 +3,7 @@ const jwt = require('express-jwt');
 
 require('dotenv').config();
 
-const UsuarioService = require('../service/user.service');
+const UsuarioService = require('../service/user-service');
 const { JWT } = require('../config');
 
 const { secret, algorithm } = JWT;
