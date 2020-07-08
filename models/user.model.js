@@ -22,9 +22,9 @@ userSchema.pre('save', async (next) => {
     next(e);
   }
 });
-(userSchema.methods.comparePassword = function (candidatePassword, cb) {
+userSchema.methods.comparePassword = (candidatePassword, cb) => {
   bcrypt.compare(candidatePassword, this.contrasenia, (err, isMatch) => {
     cb(err, isMatch);
   });
-}),
-  (module.exports = mongoose.model('Usuario', userSchema));
+};
+module.exports = mongoose.model('Usuario', userSchema);
