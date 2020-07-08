@@ -1,6 +1,8 @@
 const UserService = require('../service/user-service');
 const Usuario = require('../models/user.model');
 
+const { error } = console;
+
 module.exports = {
   async getUsers(req, res) {
     const users = await UserService.getAllUsers();
@@ -17,21 +19,20 @@ module.exports = {
   },
 
   async postUser(req, res) {
-    const user = new Usuario({
-      usuario: req.body.usuario,
-      correo: req.body.correo,
-      contrasenia: req.body.contrasenia,
-      hospital: req.body.hospital,
-      admin: req.body.admin,
-    });
-
-    // acá invoco el gravatar antes de que grabe el usuario
-    await user.save(async (err) => {
-      if (err) return res.status(500).send({ message: `Error al crear el usuario: ${err}` });
-      const tokenGenerado = await UserService.createToken(user);
-      // await UserService.postUser(user);
-      return res.status(200).send({ token: tokenGenerado });
-    });
+    try {
+      const user = new Usuario({
+        usuario: req.body.usuario,
+        correo: req.body.correo,
+        contrasenia: req.body.contrasenia,
+        hospital: req.body.hospital,
+        admin: req.body.admin,
+      });
+      await UserService.postUser(user);
+      return res.status(200).send({ user });
+    } catch (e) {
+      error(e);
+      return e;
+    }
   },
 
   async putUser(req, res) {
