@@ -37,7 +37,7 @@ module.exports = {
   async putUser(req, res) {
     const { id } = req.params;
     const usuarioRecibido = req.body;
-    usuarioActualizado = await UserService.putUser(id, usuarioRecibido);
+    const usuarioActualizado = await UserService.putUser(id, usuarioRecibido);
 
     return res.status(200).send({ usuarioActualizado });
   },
