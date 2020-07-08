@@ -6,7 +6,6 @@ const envVariables = ['JWT_SECRET'];
 
 checkEnvironmentVariables(envVariables);
 
-
 module.exports = {
   // Server options
   host: '0.0.0.0',
@@ -14,7 +13,7 @@ module.exports = {
 
   // JWT config
   JWT: {
-    algorithm: ['HS256','HS256'],
+    algorithm: ['HS256', 'HS256'],
     accessTokenExpiryTime: 86400, // 1 day
     refreshTokenExpiryTime: 3600, // 1 hour
     secret: process.env.JWT_SECRET,
