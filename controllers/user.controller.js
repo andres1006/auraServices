@@ -1,6 +1,6 @@
-const UserService = require("../service/user.service");
-const Usuario = require("../models/user.model");
-const path = require("path");
+const UserService = require('../service/user.service');
+const Usuario = require('../models/user.model');
+const path = require('path');
 module.exports = {
   async getUsers(req, res, next) {
     const users = await UserService.getAllUsers();
@@ -27,10 +27,7 @@ module.exports = {
 
     //acá invoco el gravatar antes de que grabe el usuario
     const newUser = await user.save(async (err) => {
-      if (err)
-        return res
-          .status(500)
-          .send({ message: `Error al crear el usuario: ${err}` });
+      if (err) return res.status(500).send({ message: `Error al crear el usuario: ${err}` });
       let tokenGenerado = await UserService.createToken(user);
       // await UserService.postUser(user);
       return res.status(200).send({ token: tokenGenerado });
@@ -48,42 +45,32 @@ module.exports = {
   async deleteUser(req, res) {
     const { id } = req.params;
     UserService.deleteUser(id);
-    return res.status(200).send("Usuario Eliminado");
+    return res.status(200).send('Usuario Eliminado');
   },
 
   async signIn(req, res) {
     Usuario.findOne({ correo: req.body.correo }, (err, user) => {
-      if (err)
-        return res.status(500).send({ message: `Error al ingresar: ${err}` });
+      if (err) return res.status(500).send({ message: `Error al ingresar: ${err}` });
       if (!user)
-        return res
-          .status(404)
-          .send({ message: `No existe el usuario: ${req.body.correo}` });
+        return res.status(404).send({ message: `No existe el usuario: ${req.body.correo}` });
 
       return user.comparePassword(
         req.body.contrasenia,
 
         async (err, isMatch) => {
-          if (err)
-            return res
-              .status(500)
-              .send({ message: `Error al ingresar: ${err}` });
+          if (err) return res.status(500).send({ message: `Error al ingresar: ${err}` });
           if (!isMatch)
-            return res
-              .status(404)
-              .send({
-                message: `Error de contraseña: ${req.body.contrasenia}`,
-              });
+            return res.status(404).send({
+              message: `Error de contraseña: ${req.body.contrasenia}`,
+            });
 
           //req.user = user
           let tokenGenerado = await UserService.createToken(user);
-          return res
-            .status(200)
-            .send({
-              message: "Te has logueado correctamente",
-              token: tokenGenerado,
-              user: user,
-            });
+          return res.status(200).send({
+            message: 'Te has logueado correctamente',
+            token: tokenGenerado,
+            user: user,
+          });
         }
       );
     });
