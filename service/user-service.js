@@ -1,8 +1,7 @@
-"use strict";
-const Usuario = require("../models/user.model");
-const jwt = require("../utils/jwt");
-const moment = require("moment");
-const bcrypt = require("bcrypt-nodejs");
+const moment = require('moment');
+const bcrypt = require('bcrypt-nodejs');
+const jwt = require('../utils/jwt');
+const Usuario = require('../models/user.model');
 
 module.exports = {
   async getAllUsers() {
@@ -21,10 +20,11 @@ module.exports = {
   },
 
   async putUser(id, userreq) {
-    var newUser = await Usuario.findByIdAndUpdate(id, userreq);
+    let newUser = await Usuario.findByIdAndUpdate(id, userreq);
     if (userreq.contrasenia) {
       bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(userreq.contrasenia, salt, null, async (err, hash) => {
+        bcrypt.hash(userreq.contrasenia, salt, null, async (_err, hash) => {
+          // eslint-disable-next-line no-param-reassign
           userreq.contrasenia = hash;
           newUser = await Usuario.findByIdAndUpdate(id, userreq);
         });
@@ -39,11 +39,12 @@ module.exports = {
 
   async createToken(usuario) {
     const payload = {
+      // eslint-disable-next-line no-underscore-dangle
       sub: usuario._id,
       iat: moment().unix(),
       // exp:  moment().add(accessTokenExpiryTime/60/60/24,'days').unix()
     };
-    return await jwt.generateToken(payload, payload);
+    return jwt.generateToken(payload, payload);
   },
 
   async decodeToken(token) {
@@ -52,16 +53,18 @@ module.exports = {
         const payload = jwt.getDecodedToken(token);
 
         if (payload.exp <= moment().unix()) {
+          // eslint-disable-next-line prefer-promise-reject-errors
           reject({
             status: 401,
-            message: "El token ha expirado",
+            message: 'El token ha expirado',
           });
         }
         resolve(payload.sub);
       } catch (err) {
+        // eslint-disable-next-line prefer-promise-reject-errors
         reject({
           status: 500,
-          message: "Token no válido",
+          message: 'Token no válido',
         });
       }
     });
