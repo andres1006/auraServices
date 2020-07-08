@@ -36,10 +36,10 @@ module.exports = {
 
   async putUser(req, res) {
     const { id } = req.params;
-    const usuario_recibido = req.body;
-    usuario_actualizado = await UserService.putUser(id, usuario_recibido);
+    const usuarioRecibido = req.body;
+    usuarioActualizado = await UserService.putUser(id, usuarioRecibido);
 
-    return res.status(200).send({ usuario_actualizado });
+    return res.status(200).send({ usuarioActualizado });
   },
 
   async deleteUser(req, res) {
