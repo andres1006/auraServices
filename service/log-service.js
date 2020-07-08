@@ -23,7 +23,7 @@ const initConection = () => {
 
 const pushLog = async (data) => {
   try {
-    //initConection();
+    // initConection();
     const logToSave = new LogModel(data);
     const resPushLog = await logToSave.save();
     return resPushLog;
@@ -34,7 +34,7 @@ const pushLog = async (data) => {
 
 const searchLog = async () => {
   try {
-    //initConection();
+    // initConection();
     resPushLog = [];
     for await (const logs of LogModel.find()) {
       resPushLog.push(logs);
