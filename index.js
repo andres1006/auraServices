@@ -1,17 +1,19 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const logRoute = require('./routers/log-route') 
-const userRoute = require('./routers/user.routes')
-const { initConection } = require('./service/log-service')
-const cors = require('cors') 
+const cors = require('cors');
+const logRoute = require('./routers/log-route');
+const userRoute = require('./routers/user.routes');
+const { initConection } = require('./service/log-service');
+
 const app = express();
 
 const { PORT } = process.env;
 
-app.use(cors())
+const { log } = console;
+app.use(cors());
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 initConection();
@@ -19,8 +21,6 @@ initConection();
 userRoute(app);
 logRoute(app);
 
-
-
-app.listen(PORT, function(){
-	console.log(`Server running in http://localhost:${PORT}`);
+app.listen(PORT, () => {
+  log(`Server running in http://localhost:${PORT}`);
 });
