@@ -25,7 +25,7 @@ module.exports = {
       admin: req.body.admin,
     });
 
-    //acá invoco el gravatar antes de que grabe el usuario
+    // acá invoco el gravatar antes de que grabe el usuario
     await user.save(async (err) => {
       if (err) return res.status(500).send({ message: `Error al crear el usuario: ${err}` });
       const tokenGenerado = await UserService.createToken(user);
@@ -64,7 +64,7 @@ module.exports = {
               message: `Error de contraseña: ${req.body.contrasenia}`,
             });
 
-          //req.user = user
+          // req.user = user
           const tokenGenerado = await UserService.createToken(user);
           return res.status(200).send({
             message: 'Te has logueado correctamente',
