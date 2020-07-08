@@ -24,8 +24,8 @@ const initConection = () => {
 const pushLog = async (data) => {
   try {
     //initConection();
-    const log = new LogModel(data);
-    const resPushLog = await log.save();
+    const logToSave = new LogModel(data);
+    const resPushLog = await logToSave.save();
     return resPushLog;
   } catch (error) {
     log('Error al subir a DB', error);
