@@ -17,7 +17,7 @@ module.exports = {
   },
 
   async postUser(req, res) {
-    let user = new Usuario({
+    const user = new Usuario({
       usuario: req.body.usuario,
       correo: req.body.correo,
       contrasenia: req.body.contrasenia,
@@ -28,7 +28,7 @@ module.exports = {
     //acá invoco el gravatar antes de que grabe el usuario
     await user.save(async (err) => {
       if (err) return res.status(500).send({ message: `Error al crear el usuario: ${err}` });
-      let tokenGenerado = await UserService.createToken(user);
+      const tokenGenerado = await UserService.createToken(user);
       // await UserService.postUser(user);
       return res.status(200).send({ token: tokenGenerado });
     });
@@ -36,7 +36,7 @@ module.exports = {
 
   async putUser(req, res) {
     const { id } = req.params;
-    let usuario_recibido = req.body;
+    const usuario_recibido = req.body;
     usuario_actualizado = await UserService.putUser(id, usuario_recibido);
 
     return res.status(200).send({ usuario_actualizado });
@@ -65,7 +65,7 @@ module.exports = {
             });
 
           //req.user = user
-          let tokenGenerado = await UserService.createToken(user);
+          const tokenGenerado = await UserService.createToken(user);
           return res.status(200).send({
             message: 'Te has logueado correctamente',
             token: tokenGenerado,
